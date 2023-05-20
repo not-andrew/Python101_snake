@@ -1,5 +1,7 @@
 <h2>Snake Game (PyGame)</h2>
 <h3>Created by:</h3>
-* Andrei Iancu
-* Andy Bănescu
-* Augustin Nițu
+<ul>
+  <li>Andrei Iancu</li>
+  <li>Andy Bănescu</li>
+  <li>Augustin Nițu</li>
+</ul>
