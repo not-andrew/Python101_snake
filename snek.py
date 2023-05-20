@@ -3,19 +3,24 @@ import random
 import wall
 import menu
 from snakemodify import snake_modify
+from Score import show_score
 
 screenWidth=720
 screenHeight=480
 # pygame setup
 pygame.init()
 pygame.display.set_caption('Python101 Snake')
-
+screen = pygame.display.set_mode((screenWidth, screenHeight))
 fps = pygame.time.Clock()
 running = False
 
+#initialise wall variables
+wallSquares=[]
+wallObject=[]
+
 #initialise snake variables
 
-snakeSpeed=3
+snakeSpeed=2
 snake_position = [100, 50]
 snake_body = [[100, 50],
               [80, 50],
@@ -44,16 +49,15 @@ def check_collisions():
         if snake_position[0] == block[0] and snake_position[1] == block[1]:
             pygame.quit()
     # Touching a wall
-    for wallType in wallObject:
-        for square in wall.variations[wallType[0]]:
-            if snake_position[0]<= wallType[1] + 10*square[0]+7 and snake_position[0]>= wallType[1] + 10*square[0] -7 and  snake_position[1]<= wallType[2] + 10*square[1]+7 and snake_position[1]>= wallType[2] + 10*square[1] -7:
-                print("assasas")
-                # pygame.quit()
+    for square in wallSquares:
+        if snake_position[0]<= square[0]+10 and snake_position[0]>= square[0] -10 and  snake_position[1]<= square[1]+10 and snake_position[1]>=square[1] -10:
+            print("assasas")
+            # pygame.quit()
 
 def drawWall(wall, startPosition):
     #draw all the squares in position as described in the wall variation
     for square in wall:
-        pygame.draw.rect(screen, wallColor, pygame.Rect(startPosition[0] + 10*square[0], startPosition[1] + 10*square[1], 10,10))
+        pygame.draw.rect(screen, wallColor, pygame.Rect(square[0], square[1], 10,10))
 
 def readKey():
     global running
@@ -109,19 +113,26 @@ def updateSnakePosition():
         snake_position[1]=snake_position[1]-screenHeight
 
 #initialize walls
-wallNumber=random.randrange(5,18)
+wallNumber=random.randrange(3,5)
 zoneRadiusX=int(screenWidth/wallNumber)
 zoneRadiusY=int(screenHeight/wallNumber)
-wallObject=[]
 
 for i in range(wallNumber):
-    wallObject.append( [ random.randrange(0, len(wall.variations)) , zoneRadiusX*i + random.randrange(-120,120), zoneRadiusY*i + random.randrange(-120,120)  ] )
+    for j in range(wallNumber):
+        wallObject.append( [ random.randrange(0, len(wall.variations)) , zoneRadiusX*i + random.randrange(-100,100), zoneRadiusY*j + random.randrange(-100,100)  ] )
 
-print(wallObject)
 
-screen = pygame.display.set_mode((1200, 800))
-running = menu.display_menu_window(screen, [1200,800])
-screen = pygame.display.set_mode((screenWidth, screenHeight))
+
+
+for wallType in wallObject:
+    for square in wall.variations[wallType[0]]:
+        wallSquares.append([wallType[1]+ square[0]*10 , wallType[2]+square[1]*10])
+# wallSquares=[[wallType[1]+ square[0]*10 , wallType[2]+square[1]*10]  for square in wall.variations[wallType[0]] for wallType in wallObject ]
+print(wallSquares)
+
+
+running = menu.display_menu_window(screen, [screenWidth,screenHeight])
+
 
 while running:
     # poll for events
@@ -136,18 +147,20 @@ while running:
     
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    screen.fill(pygame.Color(15, 59, 28))
     # pygame.draw.rect(screen, green, pygame.Rect(snake_position[0], snake_position[1], 10,10))
 
     # draw snake, draw fruit, update score
     [snake_body,snake_position, fruit_position, score, fruit_spawn, screen, white] =snake_modify(snake_body,snake_position, fruit_position,score,fruit_spawn, screen, white )
 
-    for wallType in wallObject:
-        drawWall(wall.variations[wallType[0]], [wallType[1],wallType[2] ])
-        
+    # for wallType in wallObject:
+    #     drawWall(wall.variations[wallType[0]], [wallType[1],wallType[2] ])
+    drawWall(wallSquares,1)
+    
     
     check_collisions()
-   
+    show_score(pygame.Color(255,255,255),pygame.Color(0,0,0), 'times new roman', 20, screen, score)
+
 
     # RENDER YOUR GAME HERE
 
