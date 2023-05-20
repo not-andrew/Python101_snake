@@ -13,7 +13,7 @@ def display_menu_window(resolution):
 	
 	# Create the image and buttons.
 
-	image = pygame.image.load("Snake1.png")
+	image = pygame.image.load("Snake.png")
 	image_resolution = (500, 550)
 	screen.blit(image, ((resolution[0] - image_resolution[0]) / 2, 25))
 
