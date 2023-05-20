@@ -1,14 +1,13 @@
 import pygame
 import sys
 
-def display_menu_window(resolution):
+def display_menu_window(screen, resolution):
 
 	black = (0, 0, 0)
 	green = (50,205,50)
 	lime = (0,255,0)
 	light = (190, 245, 245)
 
-	screen = pygame.display.set_mode(resolution)
 	screen.fill(light)
 	
 	# Create the image and buttons.
@@ -46,7 +45,7 @@ def display_menu_window(resolution):
 			if event.type == pygame.MOUSEBUTTONDOWN: 
 				if (button_pos[0][0] <= mouse[0] <= button_pos[0][0] + button_resolution[0] and 
 					button_pos[0][1] <= mouse[1] <= button_pos[0][1] + button_resolution[1]):
-					pass
+					return True
 				if (button_pos[1][0] <= mouse[0] <= button_pos[1][0] + button_resolution[0] and 
 					button_pos[1][1] <= mouse[1] <= button_pos[1][1] + button_resolution[1]):
 					pass
