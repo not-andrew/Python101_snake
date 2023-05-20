@@ -1,3 +1,4 @@
+import leaderboard
 import pygame
 import sys
 
@@ -46,7 +47,7 @@ def display_menu_window(screen, resolution):
 					return True
 				if (button_pos[1][0] <= mouse[0] <= button_pos[1][0] + button_resolution[0] and 
 					button_pos[1][1] <= mouse[1] <= button_pos[1][1] + button_resolution[1]):
-					pass
+					leaderboard.display_leaderboard(screen, resolution)
 				if (button_pos[2][0] <= mouse[0] <= button_pos[2][0] + button_resolution[0] and 
 					button_pos[2][1] <= mouse[1] <= button_pos[2][1] + button_resolution[1]):
 					quit()
