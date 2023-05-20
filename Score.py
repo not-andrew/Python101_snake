@@ -6,5 +6,5 @@ def show_score(score_color, background_color, font, size, screen, score):
     print (score_surface.get_height())
     score_background = pygame.Surface((score_surface.get_width(),score_surface.get_height()))
     score_background.fill(background_color)
-    screen.blit(score_background, (posx, posy))
+    screen.blit(score_background, (0, 0))
     screen.blit(score_surface, score_obj)
