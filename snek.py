@@ -20,12 +20,14 @@ wallObject=[]
 
 #initialise snake variables
 
-snakeSpeed=2
+snakeSpeed=5
 snake_position = [100, 50]
 snake_body = [[100, 50],
               [80, 50],
               [60, 50],
-              [40, 50]
+              [40, 50],
+              [20, 50],
+              [0, 50]
               ]
 
 #initial directions
@@ -52,7 +54,7 @@ def check_collisions():
     for square in wallSquares:
         if snake_position[0]<= square[0]+10 and snake_position[0]>= square[0] -10 and  snake_position[1]<= square[1]+10 and snake_position[1]>=square[1] -10:
             print("assasas")
-            # pygame.quit()
+            pygame.quit()
 
 def drawWall(wall, startPosition):
     #draw all the squares in position as described in the wall variation
@@ -75,6 +77,8 @@ def readKey():
                 nextDirection="RIGHT"
             if event.key == pygame.K_LEFT:
                 nextDirection="LEFT"
+            if event.key == pygame.K_ESCAPE:
+                running = menu.display_menu_window(screen, [screenWidth,screenHeight])
 
 def setDirection():
     global direction
@@ -151,7 +155,7 @@ while running:
     # pygame.draw.rect(screen, green, pygame.Rect(snake_position[0], snake_position[1], 10,10))
 
     # draw snake, draw fruit, update score
-    [snake_body,snake_position, fruit_position, score, fruit_spawn, screen, white] =snake_modify(snake_body,snake_position, fruit_position,score,fruit_spawn, screen, white )
+    [snake_body,snake_position, fruit_position, score, fruit_spawn, screen, white] =snake_modify(snake_body,snake_position, fruit_position,score,fruit_spawn, screen, white, wallSquares )
 
     # for wallType in wallObject:
     #     drawWall(wall.variations[wallType[0]], [wallType[1],wallType[2] ])
@@ -168,6 +172,6 @@ while running:
     pygame.display.update()
     # pygame.display.flip()
 
-    fps.tick(60)  # limits FPS to 60
+    fps.tick(30)  # limits FPS to 60
 
 pygame.quit()
