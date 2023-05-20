@@ -48,6 +48,9 @@ def display_menu_window(screen, resolution):
 				if (button_pos[1][0] <= mouse[0] <= button_pos[1][0] + button_resolution[0] and 
 					button_pos[1][1] <= mouse[1] <= button_pos[1][1] + button_resolution[1]):
 					leaderboard.display_leaderboard(screen, resolution)
+					screen.fill(light)
+					screen.blit(image, ((resolution[0] - image_resolution[0]) / 2, 10))
+
 				if (button_pos[2][0] <= mouse[0] <= button_pos[2][0] + button_resolution[0] and 
 					button_pos[2][1] <= mouse[1] <= button_pos[2][1] + button_resolution[1]):
 					quit()

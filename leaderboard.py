@@ -39,9 +39,8 @@ def display_leaderboard(screen, resolution):
 
 	
 	while(True):
+		mouse = pygame.mouse.get_pos()
 		for event in pygame.event.get():
-			mouse = pygame.mouse.get_pos()
-
 			if event.type == pygame.QUIT:
 				quit()
 			if event.type == pygame.MOUSEBUTTONDOWN: 
