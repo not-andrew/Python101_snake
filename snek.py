@@ -60,7 +60,6 @@ def check_collisions():
     # Touching a wall
     for square in wallSquares:
         if snake_position[0]<= square[0]+10 and snake_position[0]>= square[0] -10 and  snake_position[1]<= square[1]+10 and snake_position[1]>=square[1] -10:
-            print("assasas")
             game_over(screen, score)
 
 def reinitialiseVariables():
@@ -159,6 +158,29 @@ def updateSnakePosition():
     if snake_position[1]>screenHeight:
         snake_position[1]=snake_position[1]-screenHeight
 
+def update_leaderboard(score):
+	
+	file = open("score.in", "r")
+	lines = file.readlines()
+		
+	scores = []
+	Scores = []
+	for line in lines:
+		scores.append(int(line))
+
+	scores.append(score)
+	scores.sort()
+	scores.reverse()
+	scores.pop()
+
+	for i in range(len(scores)):
+		scores[i] = str(scores[i])
+
+	file.close()
+	file = open("score.in", "w")
+	for score in scores:
+		file.write(score + "\n")
+	file.close()
 
 def game_over(screen, score):
     screen.fill(pygame.Color(0,0,0))
@@ -180,6 +202,7 @@ def game_over(screen, score):
     pygame.display.update()
     pygame.time.wait(2000)
     reinitialiseVariables()
+    update_leaderboard(score)
     score=0
     running = menu.display_menu_window(screen, [screenWidth,screenHeight])
 

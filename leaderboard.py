@@ -24,20 +24,14 @@ def display_leaderboard(screen, resolution):
 	button_resolution = (150, 50)
 	button_pos = ((resolution[0] - button_resolution[0]) / 2, 400)
 
-	
-
 	height = 120
 	file = open("score.in", "r")
-	for player in range(5):
-		
-		name = file.readline()
-		score = file.readline()
-		
-		text_player = font.render(score + " --- " + name, True , yellow)
+	for place in range(1, 6):
+		score = int(file.readline())
+		text_player = font.render(str(place) + ". " + str(score) + " Points", True , yellow)
 		screen.blit(text_player, (150, height))
 		height += 50
 
-	
 	while(True):
 		mouse = pygame.mouse.get_pos()
 		for event in pygame.event.get():
