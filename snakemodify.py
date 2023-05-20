@@ -4,8 +4,8 @@ def snake_modify(snake_body,snake_position, fruit_position, score, fruit_spawn, 
     k=1
     snake_body.insert(0, list(snake_position))
     if fruit_spawn == False:
-        fruit_position = [random.randrange(23, (720//10)) * 10,
-                          random.randrange(67, (480//10)) * 10]
+        fruit_position = [random.randrange(67, (720//10)) * 10,
+                          random.randrange(23, (480//10)) * 10]
     if snake_position[0] <= fruit_position[0] + 5 and snake_position[0] >= fruit_position[0] - 5 and snake_position[1] <= fruit_position[1] + 5 and snake_position[1] >= fruit_position[1] - 5:
         score = score + 10
         fruit_spawn = False
@@ -17,7 +17,7 @@ def snake_modify(snake_body,snake_position, fruit_position, score, fruit_spawn, 
                           random.randrange(1, (480//10)) * 10]
             k=1
             for i in notlist:
-                if  not(fruit_position[0] >=i[0] - 7 and  fruit_position[0] <= i[0] + 7 and fruit_position[1] >=i[1] - 7 and  fruit_position[1] <= i[1] + 7):
+                if  not(fruit_position[0] >=i[0] - 20 and  fruit_position[0] <= i[0] + 20 and fruit_position[1] >=i[1] - 20 and  fruit_position[1] <= i[1] + 20):
                     k=0
         
     fruit_spawn = True
