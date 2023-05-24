@@ -54,20 +54,29 @@ white = pygame.Color(255, 255, 255)
 
 def check_collisions():
     # Touching the snake body
+    
     for block in snake_body[1:]:
         if snake_position[0] == block[0] and snake_position[1] == block[1]:
-            pygame.quit()
+            game_over(screen, score)
+            print("da111")
+            break
+            
+
     # Touching a wall
     for square in wallSquares:
         if snake_position[0]<= square[0]+10 and snake_position[0]>= square[0] -10 and  snake_position[1]<= square[1]+10 and snake_position[1]>=square[1] -10:
             game_over(screen, score)
+            print("da222")
 
 def reinitialiseVariables():
-    global score
     global snake_position
     global snake_body
     global fruit_position
+    global score
     global fruit_spawn
+    global direction
+
+    direction="RIGHT"
     score=0
     snake_position = [100, 50]
     snake_body = [[100, 50],
@@ -91,7 +100,8 @@ def reinitialiseVariables():
 
     for i in range(wallNumber):
         for j in range(wallNumber):
-            wallObject.append( [ random.randrange(0, len(wall.variations)) , zoneRadiusX*i + random.randrange(-100,100), zoneRadiusY*j + random.randrange(-100,100)  ] )
+            if not (i==1 and j==1):
+                wallObject.append( [ random.randrange(0, len(wall.variations)) , zoneRadiusX*i + random.randrange(-100,100), zoneRadiusY*j + random.randrange(-100,100)  ] )
 
     for wallType in wallObject:
         for square in wall.variations[wallType[0]]:
@@ -201,9 +211,9 @@ def game_over(screen, score):
 
     pygame.display.update()
     pygame.time.wait(2000)
-    reinitialiseVariables()
     update_leaderboard(score)
-    score=0
+    reinitialiseVariables()
+
     running = menu.display_menu_window(screen, [screenWidth,screenHeight])
 
 running = menu.display_menu_window(screen, [screenWidth,screenHeight])
